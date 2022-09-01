@@ -40,6 +40,7 @@ for df in df_list_raw:
     df_list.append(z)
 ```
 ## Clustering stocks
+We will cluster companies using their daily stock price movements (i.e. the PLN difference between the closing and opening prices for each trading day). Notice that some stocks are more expensive than others. To account for this, we will include a Normalizer at the beginning of our pipeline. The Normalizer will separately transform each company's stock price to a relative scale before the clustering begins.
 
 ```python
 # create a dataframe where each row corresponds to a company and each column corresponds to a trading day
