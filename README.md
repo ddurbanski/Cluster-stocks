@@ -4,6 +4,7 @@ Clustering companies using their daily stock price movements using KMeans
 This repository shows
 
 ## Data preprocessing
+Our data contains daily prices of WIG20 index portfolio over the late 2019-2022 period saved in OHLCV format. Normally this benchmark is based on the value of 20 major and most liquid companies listed on WSE, but in this example we excluded two companies (ALE and PCO) because of their recent IPOs. Stocks are quoted on WSE (Warsaw Stock Exchange) and price data comes from stooq.pl
 
 ```python
 import glob
