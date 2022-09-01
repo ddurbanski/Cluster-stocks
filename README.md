@@ -10,7 +10,7 @@ import glob
 import pandas as pd
 
 # get csv files from a folder
-path = 'folder_path'
+path = 'path_to_folder'
 csv_files = glob.glob(path + "/*.csv")
 
 # read each csv file and create a list of dataframes
