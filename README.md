@@ -74,6 +74,7 @@ dataframe = pd.DataFrame({'labels': labels, 'tickers': tickers})
 print(dataframe.sort_values('labels'))
 ```
 ## Visualizing hierarchies
+We will perform hierarchical clustering of the companies using the dendrogram plot.
 
 ```python
 from sklearn.preprocessing import normalize
