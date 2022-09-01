@@ -38,3 +38,58 @@ for df in df_list_raw:
     z = y['diff']
     df_list.append(z)
 ```
+## Clustering stocks
+
+```python
+# create a dataframe where each row corresponds to a company and each column corresponds to a trading day
+df_raw = pd.concat(df_list, axis=1, ignore_index=False)
+df_t = df_raw.transpose()
+
+tickers = ['ACP', 'CCC', 'CDR', 'CPS', 'DNP', 'JSW', 'KGH', 'KTY', 'LPP', 'MBK', 'OPL', 'PEO', 'PGE', 'PGN', 'PKN', 'PKO', 'PZU', 'SPL']
+
+print(len(df_t))
+print(len(tickers))
+
+import numpy as np
+
+# convert the price movements to Numpy matrix for fitting the model
+df = np.matrix(df_t)
+
+from sklearn.preprocessing import Normalizer
+from sklearn.pipeline import make_pipeline
+from sklearn.cluster import KMeans
+
+# create a pipeline that chains normalizer and kmeans then fit the pipeline to the df array
+normalizer = Normalizer()
+kmeans = KMeans(n_clusters=10)
+pipeline = make_pipeline(normalizer, kmeans)
+pipeline.fit(df)
+
+# predict the cluster labels for the price movements
+labels = pipeline.predict(df)
+dataframe = pd.DataFrame({'labels': labels, 'tickers': tickers})
+
+# display dataframe sorted by cluster label
+print(dataframe.sort_values('labels'))
+```
+## Visualizing hierarchies
+
+```python
+from sklearn.preprocessing import normalize
+from scipy.cluster.hierarchy import linkage
+from scipy.cluster.hierarchy import dendrogram
+
+# rescale the price movements then calculate the hierarchical clustering, using 'complete' linkage
+normalized_df = normalize(df)
+mergings = linkage(normalized_df, method='complete')
+
+# plot a dendrogram of the hierarchical clustering, using the company tickers as the labels
+dendrogram(mergings,
+           labels = tickers,
+           leaf_rotation = 90,
+           leaf_font_size = 6)
+
+import matplotlib.pyplot as plt
+
+plt.show()
+```
